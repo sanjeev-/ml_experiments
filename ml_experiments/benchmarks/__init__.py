@@ -1,1 +1,1 @@
-"""Benchmarking utilities."""
+"""Benchmarking utilities for model evaluation."""

@@ -16,41 +16,75 @@ parts/
 sdist/
 var/
 wheels/
+pip-wheel-metadata/
+share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # Virtual environments
 venv/
-ENV/
 env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
 
-# IDE
-.vscode/
+# PyCharm
 .idea/
-*.swp
-*.swo
 
-# Jupyter
-.ipynb_checkpoints/
-*.ipynb
+# VSCode
+.vscode/
+
+# Jupyter Notebook
+.ipynb_checkpoints
 
 # Testing
 .pytest_cache/
 .coverage
 htmlcov/
+.tox/
+.hypothesis/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Ruff
+.ruff_cache/
+
+# Environment variables
+.env
+.env.local
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Modal
+.modal_token_id
+
+# Experiments
+checkpoints/
+outputs/
+runs/
+wandb/
 
 # Data
 data/
-checkpoints/
-outputs/
-logs/
+datasets/
+*.tar
+*.tar.gz
+*.zip
 
-# Weights & Biases
-wandb/
-
-# MacOS
-.DS_Store
-
-# Beehive
-.beehive-*
+# Models
+models/
+*.pth
+*.pt
+*.ckpt
+*.safetensors
