@@ -1,0 +1,38 @@
+# Example experiment configuration
+# This demonstrates the base configuration schema that all experiments use
+
+# Core experiment settings
+experiment_name: "example_experiment_001"
+experiment_type: "text_to_image"  # Type of experiment (text_to_image, segmentation, etc.)
+description: "Example experiment demonstrating the base configuration"
+tags:
+  - "example"
+  - "demo"
+
+# Output and storage
+output_dir: "./outputs/example_experiment_001"
+seed: 42
+device: "auto"  # Options: "auto", "cuda", "cpu", "cuda:0", "mps"
+log_level: "INFO"  # Options: "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"
+
+# Checkpointing configuration
+checkpoint_dir: "./outputs/example_experiment_001/checkpoints"
+checkpoint_frequency: 100  # Save checkpoint every N steps (0 = disabled)
+checkpoint_to_s3: false  # Set to true to upload checkpoints to S3
+s3_bucket: null  # S3 bucket name (required if checkpoint_to_s3=true)
+s3_prefix: "checkpoints"  # S3 key prefix
+
+# Metrics and logging
+use_wandb: false  # Enable Weights & Biases logging
+wandb_project: null  # W&B project name (required if use_wandb=true)
+wandb_entity: null  # W&B entity/team name
+wandb_tags:
+  - "example"
+  - "baseline"
+log_frequency: 10  # Log metrics every N steps
+
+# Task-specific configuration can be added by subclasses
+# For example, a text-to-image experiment might add:
+# model_name: "stabilityai/stable-diffusion-2-1"
+# num_inference_steps: 50
+# guidance_scale: 7.5
