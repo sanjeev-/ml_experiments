@@ -51,3 +51,6 @@ wandb/
 
 # MacOS
 .DS_Store
+
+# Beehive
+.beehive-*
