@@ -1,6 +1,7 @@
-"""Core modules for ml_experiments framework."""
+"""Core modules for the ML Experiments framework."""
 
-from ml_experiments.core.data import (
+from .experiment import Experiment, ExperimentConfig, ExperimentFactory
+from .data import (
     DatasetConfig,
     S3PresignedURLGenerator,
     get_dataset,
@@ -13,6 +14,9 @@ from ml_experiments.core.data import (
 )
 
 __all__ = [
+    "Experiment",
+    "ExperimentConfig",
+    "ExperimentFactory",
     "DatasetConfig",
     "S3PresignedURLGenerator",
     "get_dataset",

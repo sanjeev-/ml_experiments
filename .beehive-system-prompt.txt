@@ -6,19 +6,18 @@ Plan: Scaffold the ml_experiments framework from scratch. This is an empty repo 
 Execution mode: sequential
 Total tickets: 10
 
-COMPLETED BEFORE YOUR TASK:
-  #1. [merged] Set up project structure and pyproject.toml
-     Create the basic project structure with pyproject.toml containing all required dependencies. Set up directories: ml_experiments/ (main package), configs/, scripts/, tests/. Configure pyproject.toml with dependencies: torch, torchvision, diffusers, transformers, accelerate, modal, webdataset, boto3, pydantic, rich, bitsandbytes, torchmetrics, clean-fid, wandb. Include proper package metadata and entry points.
-
-  #2. [completed] Implement core experiment base class
-     Create ml_experiments/core/experiment.py with a base Experiment class. Include: Pydantic config loading from YAML, structured logging with rich, checkpointing to S3/local, metric tracking with wandb integration, abstract methods for train/eval/inference that subclasses must implement. Add proper error handling and validation.
-
-  #3. [merged] Build Modal integration with GPU image and runner
-     Create ml_experiments/core/modal_runner.py with Modal app definition. Include: CUDA+PyTorch+HuggingFace GPU image with all dependencies pre-installed, modal.Volume for HuggingFace model cache, generic run_experiment() function that takes experiment config dict and runs any experiment class on Modal GPUs (A10G/A100/H100). Handle GPU selection, volume mounting, and experiment instantiation.
-
->>> YOUR TASK (#4): Implement WebDataset S3 streaming utilities
+>>> YOUR TASK (#1): Set up project structure and pyproject.toml
 
 PLANNED AFTER YOUR TASK:
+  #2. Implement core experiment base class
+     Create ml_experiments/core/experiment.py with a base Experiment class. Include: Pydantic config loading from YAML, structured logging with rich, checkpointing to S3/local, metric tracking with wandb integration, abstract methods for train/eval/inference that subclasses must implement. Add proper error handling and validation.
+
+  #3. Build Modal integration with GPU image and runner
+     Create ml_experiments/core/modal_runner.py with Modal app definition. Include: CUDA+PyTorch+HuggingFace GPU image with all dependencies pre-installed, modal.Volume for HuggingFace model cache, generic run_experiment() function that takes experiment config dict and runs any experiment class on Modal GPUs (A10G/A100/H100). Handle GPU selection, volume mounting, and experiment instantiation.
+
+  #4. Implement WebDataset S3 streaming utilities
+     Create ml_experiments/core/data.py with WebDataset S3 integration. Include: get_dataset() function that takes dataset config with S3 path and returns streaming WebDataset pipeline, S3 presigned URL generation for streaming, standard image transforms pipeline, dataset registry for common datasets, error handling for network issues and malformed data.
+
   #5. Add metrics and profiling utilities
      Create ml_experiments/core/metrics.py with evaluation metrics and profiling tools. Include: FID score calculation using clean-fid, LPIPS and CLIP-score metrics, GPU memory profiling utilities, latency measurement with percentiles (p50/p95/p99), throughput calculation (images/sec), metric logging integration with the base Experiment class.
 
@@ -43,7 +42,7 @@ IMPORTANT: Focus ONLY on your task. Do not implement work that belongs to previo
 TASK INSTRUCTIONS:
 ================================================================================
 
-Create ml_experiments/core/data.py with WebDataset S3 integration. Include: get_dataset() function that takes dataset config with S3 path and returns streaming WebDataset pipeline, S3 presigned URL generation for streaming, standard image transforms pipeline, dataset registry for common datasets, error handling for network issues and malformed data.
+Create the basic project structure with pyproject.toml containing all required dependencies. Set up directories: ml_experiments/ (main package), configs/, scripts/, tests/. Configure pyproject.toml with dependencies: torch, torchvision, diffusers, transformers, accelerate, modal, webdataset, boto3, pydantic, rich, bitsandbytes, torchmetrics, clean-fid, wandb. Include proper package metadata and entry points.
 
 ================================================================================
 DELIVERABLE - Complete these steps when done:
