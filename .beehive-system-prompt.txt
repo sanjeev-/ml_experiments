@@ -25,12 +25,12 @@ COMPLETED BEFORE YOUR TASK:
   #6. [merged] Create task-specific experiment stubs
      Create ml_experiments/tasks/ with stub experiment classes extending base Experiment: text_to_image.py (Stable Diffusion via diffusers), matting.py (image matting), segmentation.py (SAM integration), synthetic_data.py (Blender pipeline), vae.py (VAE training), text_encoder.py (CLIP/T5). Each should have proper config schemas and placeholder implementations.
 
->>> YOUR TASK (#7): Implement benchmarking utilities
+  #7. [completed] Implement benchmarking utilities
+     Create benchmarks/ module with three files: benchmark.py for latency/throughput/memory measurement with configurable runs and statistical analysis, quantize.py for bitsandbytes int8/int4 quantization and torch.compile optimization wrappers, compare.py for Rich table generation comparing multiple models side-by-side with metrics.
+
+>>> YOUR TASK (#8): Add utility modules for S3, HuggingFace, and visualization
 
 PLANNED AFTER YOUR TASK:
-  #8. Add utility modules for S3, HuggingFace, and visualization
-     Create utils/ module with: s3.py for S3 WebDataset shard listing and presigned URL generation using boto3, hf.py for HuggingFace Hub model loading helpers with caching and error handling, viz.py for image grid visualization and tensorboard logging utilities. Include proper error handling and type hints.
-
   #9. Create CLI entry points
      Create scripts/run_experiment.py as main CLI entry point that loads YAML configs and launches experiments locally or on Modal, and scripts/benchmark.py for model benchmarking with quantization options. Both should use rich for pretty CLI output, proper argument parsing with click/argparse, and integration with the core framework.
 
@@ -43,7 +43,7 @@ IMPORTANT: Focus ONLY on your task. Do not implement work that belongs to previo
 TASK INSTRUCTIONS:
 ================================================================================
 
-Create benchmarks/ module with three files: benchmark.py for latency/throughput/memory measurement with configurable runs and statistical analysis, quantize.py for bitsandbytes int8/int4 quantization and torch.compile optimization wrappers, compare.py for Rich table generation comparing multiple models side-by-side with metrics.
+Create utils/ module with: s3.py for S3 WebDataset shard listing and presigned URL generation using boto3, hf.py for HuggingFace Hub model loading helpers with caching and error handling, viz.py for image grid visualization and tensorboard logging utilities. Include proper error handling and type hints.
 
 ================================================================================
 DELIVERABLE - Complete these steps when done:
