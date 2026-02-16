@@ -1,0 +1,332 @@
+# Base Experiment Configuration Template
+# This is a comprehensive template showing all available configuration options
+# for the ML Experiments framework. Copy and customize this file for your experiments.
+
+# =============================================================================
+# CORE EXPERIMENT SETTINGS
+# =============================================================================
+
+# Unique identifier for this experiment run
+experiment_name: "my_experiment_001"
+
+# Type of experiment - must match one of the available experiment types:
+# - text_to_image: Stable Diffusion text-to-image generation
+# - segmentation: Image segmentation (SAM integration)
+# - matting: Image matting experiments
+# - synthetic_data: Synthetic data generation with Blender
+# - vae: Variational Autoencoder training
+# - text_encoder: Text encoder (CLIP/T5) training
+experiment_type: "text_to_image"
+
+# Human-readable description of the experiment
+description: "Base experiment configuration template showing all available options"
+
+# Tags for organization and filtering
+tags:
+  - "template"
+  - "base"
+
+# =============================================================================
+# OUTPUT AND STORAGE
+# =============================================================================
+
+# Local directory for experiment outputs
+output_dir: "./outputs/my_experiment_001"
+
+# Random seed for reproducibility
+seed: 42
+
+# Device configuration
+# Options: "auto" (auto-detect), "cuda", "cpu", "cuda:0", "cuda:1", "mps" (Apple Silicon)
+device: "auto"
+
+# Logging level
+# Options: "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"
+log_level: "INFO"
+
+# =============================================================================
+# CHECKPOINTING CONFIGURATION
+# =============================================================================
+
+# Directory for saving model checkpoints
+checkpoint_dir: "./outputs/my_experiment_001/checkpoints"
+
+# Save checkpoint every N steps (0 = disabled)
+checkpoint_frequency: 100
+
+# Upload checkpoints to S3
+checkpoint_to_s3: false
+
+# S3 bucket for checkpoint storage (required if checkpoint_to_s3=true)
+s3_bucket: null  # e.g., "my-ml-experiments"
+
+# S3 key prefix for organizing checkpoints
+s3_prefix: "checkpoints/my_experiment_001"
+
+# =============================================================================
+# METRICS AND LOGGING
+# =============================================================================
+
+# Enable Weights & Biases logging
+use_wandb: false
+
+# W&B project name (required if use_wandb=true)
+wandb_project: null  # e.g., "ml-experiments"
+
+# W&B entity/team name (optional)
+wandb_entity: null  # e.g., "my-team"
+
+# W&B run tags
+wandb_tags:
+  - "experiment"
+  - "baseline"
+
+# Log metrics every N steps
+log_frequency: 10
+
+# =============================================================================
+# MODAL GPU CONFIGURATION (for remote execution)
+# =============================================================================
+
+# Modal configuration is typically passed via CLI, but can be specified here
+modal:
+  # GPU type for Modal execution
+  # Options: "t4", "a10g", "a100", "a100-80gb", "h100", "l4"
+  gpu_type: "a10g"
+
+  # Number of GPUs (1 or 2 for most configurations)
+  gpu_count: 1
+
+  # Execution timeout in seconds
+  timeout: 3600
+
+  # HuggingFace cache volume size in GB
+  hf_cache_size: 50
+
+# =============================================================================
+# DATA CONFIGURATION
+# =============================================================================
+
+data:
+  # Dataset source
+  # Options: "webdataset" (S3 streaming), "local", "huggingface"
+  source: "webdataset"
+
+  # S3 path for WebDataset (if source="webdataset")
+  s3_path: null  # e.g., "s3://my-bucket/datasets/my_dataset/{00000..00099}.tar"
+
+  # Local data directory (if source="local")
+  local_path: null  # e.g., "./data/my_dataset"
+
+  # HuggingFace dataset name (if source="huggingface")
+  hf_dataset: null  # e.g., "lambdalabs/pokemon-blip-captions"
+
+  # Batch size for data loading
+  batch_size: 8
+
+  # Number of data loader workers
+  num_workers: 4
+
+  # Shuffle training data
+  shuffle: true
+
+  # Image preprocessing
+  image_size: 512
+  center_crop: true
+  random_flip: true
+
+# =============================================================================
+# MODEL CONFIGURATION (task-specific)
+# =============================================================================
+
+# These settings vary by experiment type. Below are examples for text_to_image.
+# See task-specific config files in configs/ for detailed examples.
+
+model:
+  # Model identifier from HuggingFace Hub or local path
+  model_id: "stabilityai/stable-diffusion-2-1"
+
+  # Model variant (e.g., "fp16" for half precision)
+  variant: null
+
+  # Use safetensors format for loading
+  use_safetensors: true
+
+  # Load model in half precision (FP16)
+  use_fp16: true
+
+  # Enable memory-efficient attention (xformers)
+  enable_xformers: true
+
+  # Enable CPU offloading for large models
+  enable_cpu_offload: false
+
+# =============================================================================
+# GENERATION/INFERENCE PARAMETERS (for text_to_image)
+# =============================================================================
+
+generation:
+  # Number of denoising steps
+  num_inference_steps: 50
+
+  # Classifier-free guidance scale
+  guidance_scale: 7.5
+
+  # Output image dimensions
+  height: 512
+  width: 512
+
+  # Number of images to generate per prompt
+  num_images_per_prompt: 1
+
+  # Scheduler type
+  # Options: "ddpm", "ddim", "pndm", "lms", "euler", "euler-ancestral", "dpm", "dpm-singlestep"
+  scheduler: "ddim"
+
+# =============================================================================
+# TRAINING PARAMETERS (for training/fine-tuning tasks)
+# =============================================================================
+
+training:
+  # Number of training epochs
+  num_epochs: 10
+
+  # Training batch size
+  batch_size: 8
+
+  # Gradient accumulation steps
+  gradient_accumulation_steps: 1
+
+  # Learning rate
+  learning_rate: 5.0e-6
+
+  # Learning rate scheduler
+  # Options: "constant", "linear", "cosine", "cosine_with_restarts", "polynomial"
+  lr_scheduler: "cosine"
+
+  # Warmup steps for learning rate scheduler
+  lr_warmup_steps: 500
+
+  # Optimizer
+  # Options: "adamw", "adam", "sgd", "adafactor"
+  optimizer: "adamw"
+
+  # Weight decay
+  weight_decay: 0.01
+
+  # Gradient clipping max norm
+  max_grad_norm: 1.0
+
+  # Mixed precision training
+  # Options: "no", "fp16", "bf16"
+  mixed_precision: "fp16"
+
+  # Enable gradient checkpointing to save memory
+  gradient_checkpointing: false
+
+  # Maximum training steps (overrides num_epochs if set)
+  max_steps: null
+
+# =============================================================================
+# EVALUATION/BENCHMARKING PARAMETERS
+# =============================================================================
+
+evaluation:
+  # Run evaluation every N steps during training
+  eval_frequency: 500
+
+  # Metrics to compute
+  metrics:
+    - "fid"        # Fréchet Inception Distance
+    - "lpips"      # Learned Perceptual Image Patch Similarity
+    - "clip_score" # CLIP similarity score
+
+  # Number of samples for FID calculation
+  fid_num_samples: 1000
+
+  # Reference dataset for FID (path or HF dataset)
+  fid_reference_dataset: null
+
+  # Benchmark latency and throughput
+  benchmark_performance: true
+
+  # Number of warmup iterations for benchmarking
+  benchmark_warmup: 5
+
+  # Number of iterations for benchmarking
+  benchmark_iterations: 100
+
+# =============================================================================
+# OPTIMIZATION AND QUANTIZATION
+# =============================================================================
+
+optimization:
+  # Use torch.compile for optimization (PyTorch 2.0+)
+  use_compile: false
+
+  # Compile mode: "default", "reduce-overhead", "max-autotune"
+  compile_mode: "default"
+
+  # Quantization method
+  # Options: null, "int8", "int4", "nf4", "fp4"
+  quantization: null
+
+  # Use bitsandbytes for 8-bit optimization
+  use_8bit: false
+
+  # Use bitsandbytes for 4-bit optimization
+  use_4bit: false
+
+# =============================================================================
+# PROMPTS (for generation tasks)
+# =============================================================================
+
+# Test prompts for generation experiments
+prompts:
+  - "A photo of a cat sitting on a windowsill at sunset, highly detailed, 4k"
+  - "An oil painting of a mountain landscape with a lake, in the style of Bob Ross"
+  - "A futuristic city skyline at night with neon lights, cyberpunk style"
+  - "A closeup portrait of a person with dramatic lighting, studio photography"
+
+# Negative prompt (what to avoid in generation)
+negative_prompt: "blurry, low quality, distorted, ugly, bad anatomy"
+
+# =============================================================================
+# ADVANCED SETTINGS
+# =============================================================================
+
+advanced:
+  # Enable deterministic behavior (may impact performance)
+  deterministic: false
+
+  # CUDA benchmark mode (faster but non-deterministic)
+  cudnn_benchmark: true
+
+  # Number of threads for CPU operations
+  num_threads: 8
+
+  # Clear CUDA cache periodically
+  clear_cuda_cache: false
+
+  # Profiling settings
+  profile:
+    enabled: false
+    output_dir: "./outputs/profiles"
+    trace_memory: true
+    with_stack: false
+
+# =============================================================================
+# NOTES
+# =============================================================================
+#
+# This configuration file supports YAML anchors and references for DRY configs:
+#
+# output_base: &output_base "./outputs/my_experiment"
+# output_dir: *output_base
+# checkpoint_dir: !join [*output_base, "/checkpoints"]
+#
+# You can also use environment variable substitution:
+# s3_bucket: ${S3_BUCKET}
+# wandb_project: ${WANDB_PROJECT}
+#
+# See the documentation for more examples and best practices.
